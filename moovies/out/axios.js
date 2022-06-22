@@ -1,24 +1,28 @@
 const axios = require("axios");
-const _ = require("lodash");
 
 const API_URI = "https://apis.justwatch.com/"
 const API_LANGUAGE = "pt"
 const API_LOCALE = "pt_BR"
 
-const client = axios.create({
+const http = axios.create({
     baseURL: `${API_URI}`
 })
 
-const providers = client.get(`/content/providers/locale/${API_LOCALE}`)
+let client = {}
 
-let streamings = []
-let api = {}
+client.streaming = async () => {
+    console.log("[INFO] Buscando canais de streaming...")
 
-api.run = async (event) => {
-    streamings = await providers
+    const response = await http.get(`/content/providers/locale/${API_LOCALE}`)
+
+    console.log(`[INFO] Busca de canais concluida - Status: ${response.status}`)
+    return response.data
+}
+
+client.search = async (event) => {
 
     console.log("[INFO] Evento recebido, buscando series e filmes...")
-    const response = await client.post(
+    const response = await http.post(
         `content/titles/${API_LOCALE}/popular?language=${API_LANGUAGE}`,
         {
             "query": "stranger things"
@@ -26,36 +30,8 @@ api.run = async (event) => {
     )
 
     console.log(`[INFO] Busca concluida - Status: ${response.status}`)
-    return beautify(response.data)
+    return response.data
 }
 
-function beautify(data) {
-    if (data.items.length == 0) return 'Não foram encontrados resultado para a busca'
-
-    let topFiveResults = ""
-
-    for (var i = 0; i < 5; i++) {
-        topFiveResults += ` ${data.items[i].title} disponível em ${streaming(data.items[i])} \n`
-    }
-
-    return `
-        Foram encontrados ${data.total_results} resultados para sua busca, os 5 principais foram:
-        ${topFiveResults}   
-    `
-}
-
-function streaming(show) {
-    let channels = ""
-
-    const offers = [...new Set(show.offers.map(it => it.provider_id))]
-
-    offers.forEach(str => {
-        channels += `${streamings.data.find(s => s.id == str).clear_name} `
-    })
-
-    return channels
-}
-
-
-module.exports = api
+module.exports = client
 

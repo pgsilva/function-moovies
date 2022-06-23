@@ -3,7 +3,7 @@ const client = require("../out/axios");
 let streamings = []
 module.exports.run = async (event) => {
     streamings = await client.streaming()
-    const result = await client.search(event)
+    const result = await client.search(event.term)
     return beautify(result)
 }
 
@@ -14,19 +14,25 @@ function beautify(data) {
     let topFiveResults = ""
 
     for (var i = 0; i < 5; i++) {
-        topFiveResults += ` ${data.items[i].title} disponível em ${streaming(data.items[i])} \n`
+        const stream = streaming(data.items[i]).trim()
+
+        if (stream != '')
+            topFiveResults += `${data.items[i].title.trim()} disponível em ${stream}, `
+        else
+            topFiveResults += `${data.items[i].title.trim()}, `
     }
 
-    return `
-        Foram encontrados ${data.total_results} resultados para sua busca, os 5 principais foram:
-        ${topFiveResults}   
-    `
+    let message = `Foram encontrados ${data.total_results} resultados para sua busca, os 5 principais foram: ${topFiveResults}`
+    return message.substring(0, message.length - 2)
 }
 
 function streaming(show) {
-    let channels = ""
+    let channels = ''
 
-    const offers = [...new Set(show.offers.map(it => it.provider_id))]
+    let offers = []
+
+    if (show.offers && show.offers.length > 0)
+        offers = [...new Set(show.offers.map(it => it.provider_id))]
 
     offers.forEach(str => {
         channels += `${streamings.find(s => s.id == str).clear_name} `

@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const API_URI = "https://apis.justwatch.com/"
-const API_LANGUAGE = "pt"
+const API_LANGUAGE = "en"
 const API_LOCALE = "pt_BR"
 
 const http = axios.create({
@@ -19,13 +19,13 @@ client.streaming = async () => {
     return response.data
 }
 
-client.search = async (event) => {
+client.search = async (term) => {
 
-    console.log("[INFO] Evento recebido, buscando series e filmes...")
+    console.log(`[INFO] Evento recebido, buscando series e filmes... Command: ${term}`)
     const response = await http.post(
         `content/titles/${API_LOCALE}/popular?language=${API_LANGUAGE}`,
         {
-            "query": "stranger things"
+            'query': `${term}`
         }
     )
 

@@ -17,7 +17,7 @@ const beautify = (data) => {
         const stream = streaming(data.items[i]).trim()
 
         if (stream != '')
-            topFiveResults += `${data.items[i].title.trim()} disponível em ${stream}, `
+            topFiveResults += `${data.items[i].title.trim()} disponível em ${stream} e `
         else
             topFiveResults += `${data.items[i].title.trim()}, `
     }
@@ -35,9 +35,9 @@ const streaming = (show) => {
         offers = [...new Set(show.offers.map(it => it.provider_id))]
 
     offers.forEach(str => {
-        channels += `${streamings.find(s => s.id == str).clear_name} `
+        channels += `${streamings.find(s => s.id == str).clear_name}, `
     })
 
-    return channels
+    return channels.substring(0, channels.length - 2)
 }
 

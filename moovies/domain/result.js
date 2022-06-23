@@ -8,7 +8,7 @@ module.exports.run = async (event) => {
 }
 
 
-function beautify(data) {
+const beautify = (data) => {
     if (data.items.length == 0) return 'Não foram encontrados resultado para a busca'
 
     let topFiveResults = ""
@@ -26,7 +26,7 @@ function beautify(data) {
     return message.substring(0, message.length - 2)
 }
 
-function streaming(show) {
+const streaming = (show) => {
     let channels = ''
 
     let offers = []

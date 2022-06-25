@@ -1,9 +1,10 @@
 const client = require("../out/axios");
 
 let streamings = []
-module.exports.run = async (event) => {
+
+module.exports.run = async (tvshow) => {
     streamings = await client.streaming()
-    const result = await client.search(event.term)
+    const result = await client.search(tvshow)
     return beautify(result)
 }
 
@@ -11,18 +12,18 @@ module.exports.run = async (event) => {
 const beautify = (data) => {
     if (data.items.length == 0) return 'Não foram encontrados resultado para a busca'
 
-    let topFiveResults = ""
+    let topThreeResults = ""
 
-    for (var i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         const stream = streaming(data.items[i]).trim()
 
         if (stream != '')
-            topFiveResults += `${data.items[i].title.trim()} disponível em ${stream} e `
+            topThreeResults += `${data.items[i].title.trim()} disponível em ${stream} e `
         else
-            topFiveResults += `${data.items[i].title.trim()}, `
+            topThreeResults += `${data.items[i].title.trim()}, `
     }
 
-    let message = `Foram encontrados ${data.total_results} resultados para sua busca, os 5 principais foram: ${topFiveResults}`
+    let message = `Encontrei ${data.total_results} resultados para sua busca, separei os 3 principais que foram: ${topThreeResults}`
     return message.substring(0, message.length - 2)
 }
 

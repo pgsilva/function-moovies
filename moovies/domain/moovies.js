@@ -12,19 +12,11 @@ module.exports.run = async (tvshow) => {
 const beautify = (data) => {
     if (data.items.length == 0) return 'Não foram encontrados resultado para a busca'
 
-    let topThreeResults = ""
+    const stream = streaming(data.items[0]).trim()
 
-    for (let i = 0; i < 3; i++) {
-        const stream = streaming(data.items[i]).trim()
+    let message = `Encontrei ${data.total_results} resultados para sua busca, separei o principal que foi: ${data.items[0].title.trim()} disponível em ${stream}`
 
-        if (stream != '')
-            topThreeResults += `${data.items[i].title.trim()} disponível em ${stream} e `
-        else
-            topThreeResults += `${data.items[i].title.trim()}, `
-    }
-
-    let message = `Encontrei ${data.total_results} resultados para sua busca, separei os 3 principais que foram: ${topThreeResults}`
-    return message.substring(0, message.length - 2)
+    return message.substring(0, message.length - 1)
 }
 
 const streaming = (show) => {
@@ -39,6 +31,21 @@ const streaming = (show) => {
         channels += `${streamings.find(s => s.id == str).clear_name}, `
     })
 
-    return channels.substring(0, channels.length - 2)
+    return channels
 }
 
+
+const topThreeResults = (shows) => {
+    let topThreeResults = ""
+
+    for (let i = 0; i < 3; i++) {
+        const stream = streaming(shows[i]).trim()
+
+        if (stream != '')
+            topThreeResults += `${shows[i].title.trim()} disponível em ${stream} e `
+        else
+            topThreeResults += `${shows[i].title.trim()}, `
+    }
+
+    return topThreeResults
+}

@@ -8,7 +8,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest'
     },
     handle(handlerInput) {
-        const speechText = 'Bem vindo ao Moovies seu oráculo do entretenimento, ' +
+        const speechText = 'Bem vindo ao Moovies, seu oráculo do entretenimento, ' +
             'posso te falar exatamente onde assistir qualquer filme ou série!'
 
         const reprompt = 'Só dizer: Onde assisto o filme ou série e o nome que deseja pesquisar, se preferir falar apenas o nome também posso conseguir.'

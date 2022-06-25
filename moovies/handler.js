@@ -6,7 +6,8 @@ let skill
 
 module.exports.search = async (event, context) => {
   console.log(`[INFO] ${Date(Date.now())} Lambda disparada `)
-  //console.log(`[INFO] Evento recebido: ${JSON.stringify(event, null, 2)}`)
+  console.log(`[INFO] Evento recebido:`)
+  console.log(event)
 
   if (!skill) {
     skill = alexa.skill

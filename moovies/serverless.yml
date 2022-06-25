@@ -46,7 +46,11 @@ custom:
                   - name: AMAZON.HelpIntent
                     samples: []
                   - name: AMAZON.StopIntent
-                    samples: []
+                    samples: 
+                      - 'fechar oráculo da tv'
+                      - 'fechar Moovies'
+                      - 'fechar'
+                      - 'adeus'
                   - name: OndeAssistoIntent
                     slots:
                       - name: serie

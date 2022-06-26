@@ -94,11 +94,4 @@ const skill = Alexa.SkillBuilders.custom()
     .addErrorHandlers(ErrorHandler)
     .create()
 
-module.exports = {
-    LaunchRequestHandler,
-    OndeAssistoIntentHandler,
-    CancelAndStopIntentHandler,
-    SessionEndedRequestHandler,
-    ErrorHandler,
-    skill
-}
+module.exports = {skill}

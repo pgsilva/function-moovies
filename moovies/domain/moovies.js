@@ -5,6 +5,7 @@ let streamings = []
 module.exports.run = async (tvshow) => {
     streamings = await client.streaming()
     const result = await client.search(tvshow)
+
     return beautify(result)
 }
 

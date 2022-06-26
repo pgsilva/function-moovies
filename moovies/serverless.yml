@@ -24,7 +24,7 @@ plugins:
 custom:
   alexa:
     skills:
-      - id: ${env:ALEXA_SKILL_ID}amzn1.ask.skill.de116835-d1ee-4864-9d82-9d361a763968
+      - id:   
         manifest:
           apis:
             custom: 

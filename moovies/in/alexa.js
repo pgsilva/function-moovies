@@ -82,7 +82,7 @@ const ErrorHandler = {
             .reprompt('Encontrei um probleminha ao pesquisar, me desculpe ainda estou aprendendo, vamos tentar de novo ?')
             .getResponse();
     }
-};
+}
 
 const skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(

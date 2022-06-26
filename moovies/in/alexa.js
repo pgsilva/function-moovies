@@ -72,15 +72,15 @@ const SessionEndedRequestHandler = {
 
 const ErrorHandler = {
     canHandle() {
-        return true;
+        return true
     },
     handle(handlerInput, error) {
-        console.log(`Error handled: ${error.message}`);
+        console.log(`Error handled: ${error.message}`)
 
         return handlerInput.responseBuilder
             .speak('Encontrei um probleminha ao pesquisar, me desculpe ainda estou aprendendo, vamos tentar de novo ?')
             .reprompt('Encontrei um probleminha ao pesquisar, me desculpe ainda estou aprendendo, vamos tentar de novo ?')
-            .getResponse();
+            .getResponse()
     }
 }
 

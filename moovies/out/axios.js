@@ -1,4 +1,4 @@
-const axios = require("axios");
+const axios = require("axios")
 
 const API_URI = "https://apis.justwatch.com/"
 const API_LANGUAGE = "en"

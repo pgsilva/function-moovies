@@ -1,4 +1,4 @@
-const client = require("../out/axios");
+const client = require("../out/axios")
 
 let streamings = []
 

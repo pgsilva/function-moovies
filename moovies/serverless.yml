@@ -24,7 +24,7 @@ plugins:
 custom:
   alexa:
     skills:
-      - id:   
+      - id: ${env:ALEXA_SKILL_ID}
         manifest:
           apis:
             custom: 
